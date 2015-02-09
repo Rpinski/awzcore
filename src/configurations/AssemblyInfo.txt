@@ -1,0 +1,6 @@
+-tool
+versionize
+-version
+1.0.0
+-readableVersion
+1.0 alpha

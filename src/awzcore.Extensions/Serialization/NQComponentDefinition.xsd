@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+	========================================================================
+	 NQ Core Library
+	
+	 Homepage: http://www.awzhome.de/
+	========================================================================
+	
+	This Source Code Form is subject to the terms of the Mozilla Public
+	License, v. 2.0. If a copy of the MPL was not distributed with this
+	file, You can obtain one at http://mozilla.org/MPL/2.0/.
+   
+	The Original Code is code of NQ Core Library.
+
+	The Initial Developer of the Original Code is Andreas Weizel.
+	Portions created by the Initial Developer are
+	Copyright (C) 2012 Andreas Weizel. All Rights Reserved.
+	
+	Contributor(s): (none)
+	
+	========================================================================
+-->
+
+<xs:schema id="NQComponentDefinition"
+	targetNamespace="http://www.awzhome.de/xmlns/NQComponent/1.0"
+	elementFormDefault="qualified"
+	xmlns="http://www.awzhome.de/xmlns/NQComponent/1.0"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <!-- Root element -->
+  <xs:element name="NQComponent" type="DefinitionRootType" />
+
+  <!-- Version definition -->
+  <xs:simpleType name="VersionIDType">
+	<xs:restriction base="xs:string">
+	  <xs:pattern value="[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,4}\.[0-9]{1,4}" />
+	</xs:restriction>
+  </xs:simpleType>
+
+  <!-- Version constraint operator definition -->
+  <xs:simpleType name="VersionContraintOperatorType">
+	<xs:restriction base="xs:string">
+	  <xs:enumeration value="equal" />
+	  <xs:enumeration value="greater" />
+	  <xs:enumeration value="lower" />
+	  <xs:enumeration value="greater-or-equal" />
+	  <xs:enumeration value="lower-or-equal" />
+	</xs:restriction>
+  </xs:simpleType>
+
+  <!-- Host mode definition -->
+  <xs:simpleType name="HostModeType">
+	<xs:restriction base="xs:string">
+	  <xs:enumeration value="general" />
+	  <xs:enumeration value="gui" />
+	  <xs:enumeration value="console" />
+	  <xs:enumeration value="winservice" />
+	  <xs:enumeration value="webserver" />
+	  <xs:enumeration value="browser" />
+	</xs:restriction>
+  </xs:simpleType>
+
+  <!-- Root type definition -->
+  <xs:complexType name="DefinitionRootType">
+	<xs:sequence>
+	  <xs:element name="resources" minOccurs="0">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="translated-resource" type="ResourceType" minOccurs="0" />
+			<xs:element name="non-translated-resource" type="ResourceType" minOccurs="0" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+
+	  <xs:element name="requirements" minOccurs="0">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="requirement" type="RequirementType" minOccurs="1" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+
+	  <xs:element name="compatibility" minOccurs="0">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="condition" type="CompatibilityConditionType" minOccurs="1" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+
+	  <xs:element name="assemblies">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="assembly" type="AssemblyType" minOccurs="1" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+	</xs:sequence>
+
+	<xs:attribute name="name" type="xs:string" />
+	<xs:attribute name="updater-url" type="xs:string" use="optional" />
+	<xs:attribute name="display-name" type="xs:string" />
+		<xs:attribute name="display-version" type="xs:string" />
+  </xs:complexType>
+
+  <!-- Resource definition -->
+  <xs:complexType name="ResourceType">
+	<xs:attribute name="key" type="xs:string" />
+	<xs:attribute name="namespace" type="xs:string" />
+		<xs:attribute name="path" type ="xs:string" use="optional" />
+  </xs:complexType>
+
+  <!-- Assembly definition -->
+  <xs:complexType name="AssemblyType">
+	<xs:sequence>
+	  <xs:element name="services" minOccurs="0">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="service" type="ServiceType" minOccurs="1" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+	</xs:sequence>
+
+	<xs:attribute name="file" type="xs:string" />
+	<xs:attribute name="ismain" type="xs:boolean" use="optional" />
+  </xs:complexType>
+
+  <!-- Requirement definition -->
+  <xs:complexType name="RequirementType">
+	<xs:attribute name="name" type="xs:string" />
+	<xs:attribute name="version" type="VersionIDType" />
+	<xs:attribute name="operator" type="VersionContraintOperatorType" use="optional" />
+  </xs:complexType>
+
+  <!-- Compatibility condition definition -->
+  <xs:complexType name="CompatibilityConditionType">
+	<xs:attribute name="version" type="VersionIDType" />
+	<xs:attribute name="operator" type="VersionContraintOperatorType" use="optional" />
+  </xs:complexType>
+
+  <!-- Service definition -->
+  <xs:complexType name="ServiceType">
+	<xs:sequence>
+	  <xs:element name="substitutions" minOccurs="0">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="service" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+
+	  <xs:element name="attached-to" minOccurs="0">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="list" type="xs:string" minOccurs="1" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+
+	  <xs:element name="requirements" minOccurs="0">
+		<xs:complexType>
+		  <xs:sequence>
+			<xs:element name="requirement" type="RequirementType" minOccurs="1" maxOccurs="unbounded" />
+		  </xs:sequence>
+		</xs:complexType>
+	  </xs:element>
+
+	  <xs:element name="auto-injection" minOccurs="0">
+		<xs:complexType>
+		  <xs:choice maxOccurs="unbounded">
+			<xs:element name="service" type="AutoInjectionType" />
+			<xs:element name="list" type="AutoInjectionType" />
+		  </xs:choice>
+		</xs:complexType>
+	  </xs:element>
+	</xs:sequence>
+
+	<xs:attribute name="name" type="xs:string" />
+	<xs:attribute name="class" type="xs:string" />
+	<xs:attribute name="category" type="HostModeType" use="optional" />
+	<xs:attribute name="single-instance" type="xs:boolean" use="optional" />
+	<xs:attribute name="invoke-method" type="xs:string" use="optional" />
+	<xs:attribute name="quit-method" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <!-- Auto-injection definition -->
+  <xs:complexType name="AutoInjectionType">
+	<xs:attribute name="name" type="xs:string" />
+	<xs:attribute name="type" type="xs:string" />
+	<xs:attribute name="as-dependent" type="xs:boolean" use="optional" />
+	<xs:attribute name="overridable" type="xs:boolean" use="optional" />
+  </xs:complexType>
+
+</xs:schema>

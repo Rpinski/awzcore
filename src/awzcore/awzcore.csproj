@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D42B595D-D026-4270-B2DF-514D00DE8476}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>awzcore</RootNamespace>
+    <AssemblyName>awzcore</AssemblyName>
+    <TargetFrameworkProfile>Profile328</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BootstrapRegistration.cs" />
+    <Compile Include="BootstrapServiceContainer.cs" />
+    <Compile Include="Comparer.cs" />
+    <Compile Include="ComponentDefinitionException.cs" />
+    <Compile Include="Condition.cs" />
+    <Compile Include="ErrorReason.cs" />
+    <Compile Include="HostMode.cs" />
+    <Compile Include="LogType.cs" />
+    <Compile Include="ServiceDefinitionException.cs" />
+    <Compile Include="ServiceInfoValidator.cs" />
+    <Compile Include="ServiceLoadingException.cs" />
+    <Compile Include="ServiceManager.cs" />
+    <Compile Include="Initialization\DynamicConstructorInitializer.cs" />
+    <Compile Include="Initialization\Initializer.cs" />
+    <Compile Include="Interfaces\IAutoInjection.cs" />
+    <Compile Include="Interfaces\IBootstrapRegistration.cs" />
+    <Compile Include="Interfaces\IBootstrapServiceContainer.cs" />
+    <Compile Include="Interfaces\ICallParameterHandler.cs" />
+    <Compile Include="Interfaces\IComponentAssemblyProvider.cs" />
+    <Compile Include="Interfaces\IComponentInfo.cs" />
+    <Compile Include="Interfaces\IComponentRequirement.cs" />
+    <Compile Include="Interfaces\IInitializer.cs" />
+    <Compile Include="Interfaces\ILifecycle.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IMetaInfoContainer.cs" />
+    <Compile Include="Interfaces\IRegistration.cs" />
+    <Compile Include="Interfaces\IServiceContainer.cs" />
+    <Compile Include="Interfaces\IServiceInfo.cs" />
+    <Compile Include="Interfaces\LoggerExtensions.cs" />
+    <Compile Include="Lifecycle\LazySingletonLifecycle.cs" />
+    <Compile Include="Lifecycle\MultiLifecycle.cs" />
+    <Compile Include="Lifecycle\PreCreatedSingletonLifecycle.cs" />
+    <Compile Include="Lifecycle\SingletonLifecycle.cs" />
+    <Compile Include="Logging\EventLogger.cs" />
+    <Compile Include="Logging\LoggerEventArgs.cs" />
+    <Compile Include="Metainfo\AutoInjection.cs" />
+    <Compile Include="Metainfo\ComponentInfo.cs" />
+    <Compile Include="Metainfo\ComponentRequirement.cs" />
+    <Compile Include="Metainfo\DefaultMetaInfoContainer.cs" />
+    <Compile Include="Metainfo\ServiceInfo.cs" />
+    <Compile Include="Registration\AttributeBasedRegistration.cs" />
+    <Compile Include="Registration\AttributeComponentInfo.cs" />
+    <Compile Include="Registration\AttributeServiceInfo.cs" />
+    <Compile Include="Registration\AutoInjectionAttribute.cs" />
+    <Compile Include="Registration\ComponentCompatibilityAttribute.cs" />
+    <Compile Include="Registration\ComponentDefinitionAttribute.cs" />
+    <Compile Include="Registration\ComponentPartAttribute.cs" />
+    <Compile Include="Registration\ComponentRequirementAttribute.cs" />
+    <Compile Include="Registration\CustomRegistration.cs" />
+    <Compile Include="Registration\ExportedServiceAttribute.cs" />
+    <Compile Include="Registration\ResourceOwnerAttribute.cs" />
+    <Compile Include="Registration\ServiceAttachmentAttribute.cs" />
+    <Compile Include="Registration\ServiceInterfaceAttribute.cs" />
+    <Compile Include="Registration\ServiceInvokeMethodAttribute.cs" />
+    <Compile Include="Registration\ServiceQuitMethodAttribute.cs" />
+    <Compile Include="Registration\ServiceSubstituteAttribute.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(ProjectDir)..\..\bin\devtool.exe -fromfile $(ProjectDir)..\configurations\AssemblyInfo.txt -dir "$(ProjectDir)Properties"</PreBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="Properties\AssemblyInfoTemplate.cs" />
+  </ItemGroup>
+</Project>

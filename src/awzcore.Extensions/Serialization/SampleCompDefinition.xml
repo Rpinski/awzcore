@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<NQComponent xmlns="http://www.awzhome.de/xmlns/NQComponent/1.0"
+             name="NQTestComponent">
+  <resources>
+    <translated-resource key="NQCS" namespace="AWZhome.NQ.CommonServices.resources" />
+  </resources>
+  
+  <requirements>
+    <requirement name="NQCSBasic" operator="greater-or-equal" version="0.2.0.0" />
+  </requirements>
+  
+  <compatibility>
+    <condition operator="equal" version="0.1.1.1" />
+  </compatibility>
+  
+  <assemblies>
+    <assembly file="NQCommServices.Component.dll">
+      <services>
+        <service name="NQ.GUI.ViewManager" class="TestClass" category="gui">
+          <substitutions>
+            <service>TestService</service>
+          </substitutions>
+          <attached-to>
+            <list>TestAttachList2</list>
+          </attached-to>
+          <requirements>
+            <requirement name="NQCSBasic" operator="greater" version="1.0.0.0" />
+          </requirements>
+          <auto-injection>
+            <list as-dependent="true" name="TestAttachList" type="AWZhome.NQ.CommonServices.ContainerTestType" overridable="false" />
+            <service as-dependent="true" name="NQ.GUI.Container" type="AWZhome.NQ.CommonServices.ContainerTestType" />
+          </auto-injection>
+        </service>
+      </services>
+    </assembly>
+  </assemblies>
+</NQComponent>

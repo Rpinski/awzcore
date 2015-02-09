@@ -1,0 +1,11 @@
+bin
+obj
+*.sln.ide/
+**/packages/*
+*.suo
+*.csproj.user
+*.userprefs
+src/awzcore/Properties/AssemblyInfo.cs
+src/awzcore.Extensions/Properties/AssemblyInfo.cs
+src/awzcore.Tests/Properties/AssemblyInfo.cs
+*.nupkg

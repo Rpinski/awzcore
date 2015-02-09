@@ -1,0 +1,19 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>awzcore</id>
+		<version>1.0.0</version>
+		<authors>Andreas Weizel</authors>
+		<owners>Andreas Weizel</owners>
+		<licenseUrl>http://www.mozilla.org/MPL/2.0/</licenseUrl>
+		<projectUrl>https://github.com/Rpinski/awzcore</projectUrl>
+		<requireLicenseAcceptance>true</requireLicenseAcceptance>
+		<description>Small microkernel library, mainly intended for creation of plug-in architectures. This package contains both, the portable basic library and the extension pack supported only on full .NET profile. The latter is only installed in appropriate projects.</description>
+		<tags>awzcore microkernel</tags>
+	</metadata>
+	<files>
+		<file src="awzcore.dll" target="lib/portable-net40+sl5+windowsphone8+windows8+wpa" />
+		<file src="awzcore.dll" target="lib/net40-full" />
+		<file src="awzcore.Extensions.dll" target="lib/net40-full" />
+	</files>
+</package>

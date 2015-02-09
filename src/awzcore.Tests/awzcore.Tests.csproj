@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C4D58D85-CE28-4591-8912-32868D62B084}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>awzcore.Tests</RootNamespace>
+    <AssemblyName>awzcore.Tests</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Registration\CustomRegistrationTests.cs" />
+    <Compile Include="ITestService.cs" />
+    <Compile Include="TestServiceDefaultCtor.cs" />
+    <Compile Include="TestServiceCustomCtor.cs" />
+    <Compile Include="Lifecycle\LifecycleTests.cs" />
+    <Compile Include="Fakes\FakeServiceContainer.cs" />
+    <Compile Include="Initialization\InitializerTests.cs" />
+    <Compile Include="Main\BootstrapServiceContainerTests.cs" />
+    <Compile Include="Main\ServiceManagerTests.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <None Include="Properties\AssemblyInfoTemplate.cs" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <PropertyGroup>
+    <PreBuildEvent>$(ProjectDir)\..\..\bin\devtool.exe -fromfile $(ProjectDir)\..\configurations\AssemblyInfo.txt -dir "$(ProjectDir)\Properties"</PreBuildEvent>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="Registration\" />
+    <Folder Include="Lifecycle\" />
+    <Folder Include="Fakes\" />
+    <Folder Include="Initialization\" />
+    <Folder Include="Main\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\awzcore\awzcore.csproj">
+      <Project>{D42B595D-D026-4270-B2DF-514D00DE8476}</Project>
+      <Name>awzcore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\awzcore.Extensions\awzcore.Extensions.csproj">
+      <Project>{410D5471-D7D0-452E-A8A6-F297BC338D84}</Project>
+      <Name>awzcore.Extensions</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
