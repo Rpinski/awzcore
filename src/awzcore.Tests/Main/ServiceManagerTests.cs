@@ -79,8 +79,8 @@ namespace awzcore.Tests.Main
 			var instance2 = new TestServiceCustomCtor(5);
 
 			_registration.AddComponent("MyTestComponent")
-				.AddAsService(instance1)
-				.AddAsService(instance2).Substitutes<TestServiceDefaultCtor>();
+				.AddAsService<ITestService>(instance1)
+				.AddAsService(instance2).Substitutes<ITestService>();
 
 			_serviceManager.Load();
 
@@ -88,7 +88,7 @@ namespace awzcore.Tests.Main
 			Assert.That(substitutorInstance, Is.TypeOf<TestServiceCustomCtor>());
 			Assert.That(substitutorInstance, Is.EqualTo(instance2));
 
-			var substituteInstance = _serviceManager.Get<TestServiceDefaultCtor>();
+			var substituteInstance = _serviceManager.Get<ITestService>();
 			Assert.That(substituteInstance, Is.TypeOf<TestServiceCustomCtor>());
 			Assert.That(substituteInstance, Is.EqualTo(instance2));
 		}

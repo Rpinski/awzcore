@@ -12,7 +12,7 @@
 //
 // 	The Initial Developer of the Original Code is Andreas Weizel.
 // 	Portions created by the Initial Developer are
-// 	Copyright (C) 2014 Andreas Weizel. All Rights Reserved.
+// 	Copyright (C) 2014-2015 Andreas Weizel. All Rights Reserved.
 //
 // 	Contributor(s): (none)
 //
@@ -141,7 +141,8 @@ namespace awzcore
 				throw new ServiceLoadingException(ErrorReason.UnknownService, "Service " + typeof(T).Name + " is not registered.");
 			}
 
-			var serviceInfo = metaInfoContainer.ServiceInfos[typeof(T)];
+			var substitutorType = GetSubstitutingService(typeof(T));
+			var serviceInfo = metaInfoContainer.ServiceInfos[substitutorType ?? typeof(T)];
 
 			// Get lifecycle for requested service and let it retrieve the service instance
 			object instance = serviceInfo.Lifecycle.Create(new InitializationData(this, serviceInfo));

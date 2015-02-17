@@ -88,6 +88,7 @@ namespace awzcore.Registration
 			{
 				if (instance == null)
 					throw new ArgumentNullException("instance");
+				EnsureServiceInterfaceUniqueness(typeof(TI));
 
 				var serviceInfo = new ServiceInfo {
 					ServiceInterface = typeof(TI),
@@ -97,6 +98,7 @@ namespace awzcore.Registration
 					Initializer = null, // Allowed to be null in case of PreCreatedSingletonLifecycle
 					Lifecycle = new PreCreatedSingletonLifecycle(instance)
 				};
+						
 				Registration.ServiceInfos.Add(serviceInfo.ServiceInterface, serviceInfo);
 				return new CustomServiceRegistration(this, serviceInfo);
 			}
@@ -188,6 +190,7 @@ namespace awzcore.Registration
 					throw new ArgumentNullException("initializer");
 				if (lifecycle == null)
 					throw new ArgumentNullException("lifecycle");
+				EnsureServiceInterfaceUniqueness(typeof(TI));
 
 				var serviceInfo = new ServiceInfo {
 					ServiceInterface = typeof(TI),
@@ -197,6 +200,7 @@ namespace awzcore.Registration
 					Initializer = initializer,
 					Lifecycle = lifecycle,
 				};
+
 				Registration.ServiceInfos.Add(serviceInfo.ServiceInterface, serviceInfo);
 				return new CustomServiceRegistration(this, serviceInfo);
 			}
@@ -255,6 +259,7 @@ namespace awzcore.Registration
 					throw new ArgumentNullException("implementationType");
 				if (lifecycle == null)
 					throw new ArgumentNullException("lifecycle");
+				EnsureServiceInterfaceUniqueness(interfaceType);
 
 				var serviceInfo = new ServiceInfo {
 					ServiceInterface = interfaceType,
@@ -266,6 +271,19 @@ namespace awzcore.Registration
 				};
 				Registration.ServiceInfos.Add(serviceInfo.ServiceInterface, serviceInfo);
 				return new CustomServiceRegistration(this, serviceInfo);
+			}
+
+			/// <summary>
+			/// Throws an appropriate exception when given service interface is already registered.
+			/// </summary>
+			/// <param name="serviceInterface">Service interface type to check.</param>
+			private void EnsureServiceInterfaceUniqueness(Type serviceInterface)
+			{
+				if (Registration.ServiceInfos.ContainsKey(serviceInterface))
+				{
+					// This interface type is already registered
+					throw new ServiceDefinitionException(ErrorReason.ServiceMultiplyDefined, "Service " + serviceInterface.Name + " is about to be defined for a second time.");
+				}
 			}
 		}
 
@@ -411,7 +429,9 @@ namespace awzcore.Registration
 				throw new ArgumentNullException("componentInfo");
 			if (string.IsNullOrEmpty(componentInfo.Name))
 				throw new ComponentDefinitionException(ErrorReason.ComponentNameUnspecified, "componentInfo doesn't contain a valid name.");
-
+			if (_componentInfos.ContainsKey(componentInfo.Name))
+				throw new ComponentDefinitionException(ErrorReason.ComponentMultiplyDefined, "Trying to define component " + componentInfo.Name + " for a second time.");
+			
 			_componentInfos.Add(componentInfo.Name, componentInfo);
 			return new CustomComponentRegistration(_logger, this, componentInfo);
 		}
@@ -456,7 +476,6 @@ namespace awzcore.Registration
 		}
 
 		#endregion
-
 	}
 }
 

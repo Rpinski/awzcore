@@ -12,7 +12,7 @@
 //
 // 	The Initial Developer of the Original Code is Andreas Weizel.
 // 	Portions created by the Initial Developer are
-// 	Copyright (C) 2014 Andreas Weizel. All Rights Reserved.
+// 	Copyright (C) 2014-2015 Andreas Weizel. All Rights Reserved.
 //
 // 	Contributor(s): (none)
 //
@@ -55,6 +55,19 @@ namespace awzcore.Tests.Registration
 		}
 
 		[Test]
+		[Description("AddComponent must block registration of same component name multiple times.")]
+		public void AddComponentMultipleTimes()
+		{
+			Func<CustomRegistration.CustomComponentRegistration> registrationFunc =
+				() => _registration.AddComponent("MyTestComponent");
+			var componentInfoWrapper = registrationFunc();
+			Assert.That(componentInfoWrapper, Is.Not.Null);
+			Assert.That(componentInfoWrapper.ComponentInfo.Name, Is.EqualTo("MyTestComponent"));
+			Assert.That(() => registrationFunc(),
+				Throws.Exception.TypeOf<ComponentDefinitionException>().With.Property("Reason").EqualTo(ErrorReason.ComponentMultiplyDefined));
+		}
+
+		[Test]
 		[Description("AddAsService must create a new ServiceInfo using a PreCreatedSingletonLifecycle")]
 		public void AddAsService()
 		{
@@ -88,6 +101,20 @@ namespace awzcore.Tests.Registration
 			Assert.That(serviceInfo.Lifecycle, Is.TypeOf<MultiLifecycle>());
 
 			Assert.That(serviceInfo, Is.SameAs(serviceInfoWrapper.ServiceInfo));
+		}
+
+		[Test]
+		[Description("AddService must block registration of same interface multiple times.")]
+		public void AddServiceForSameInterfaceTypeMultipleTimes()
+		{
+			var componentInfoWrapper = _registration.AddComponent("MyTestComponent");
+			Func<CustomRegistration.CustomServiceRegistration> registrationFunc =
+				() => componentInfoWrapper.AddService<TestServiceDefaultCtor>();
+			var serviceInfoWrapper = registrationFunc();
+			Assert.That(serviceInfoWrapper, Is.Not.Null);
+			Assert.That(serviceInfoWrapper.ServiceInfo.ServiceInterface, Is.EqualTo(typeof(TestServiceDefaultCtor)));
+			Assert.That(() => registrationFunc(),
+				Throws.Exception.TypeOf<ServiceDefinitionException>().With.Property("Reason").EqualTo(ErrorReason.ServiceMultiplyDefined));
 		}
 
 		[Test]
