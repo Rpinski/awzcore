@@ -1,5 +1,5 @@
 ﻿// 	------------------------------------------------------------------------
-/// 	 awzcore Library//
+// 	 awzcore Library
 // 	 Homepage: http://www.awzhome.de/
 // 	------------------------------------------------------------------------
 //
@@ -49,6 +49,11 @@ namespace awzcore.Lifecycle
 		public object Create(InitializationData data)
 		{
 			return _instance;
+		}
+		
+		public void Destroy()
+		{
+			// No-op
 		}
 
 		#endregion

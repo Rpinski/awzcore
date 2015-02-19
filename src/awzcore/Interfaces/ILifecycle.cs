@@ -17,6 +17,7 @@
 // 	Contributor(s): (none)
 //
 // 	------------------------------------------------------------------------
+
 using System;
 using System.Collections.Generic;
 
@@ -44,6 +45,11 @@ namespace awzcore.Interfaces
 		/// </summary>
 		/// <param name="data">Initialization parameters.</param>
 		object Create(InitializationData data);
+		
+		/// <summary>
+		/// Destroys the object managed by this lifecycle.
+		/// </summary>
+		void Destroy();
 	}
 }
 

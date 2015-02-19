@@ -12,7 +12,7 @@
 //
 // 	The Initial Developer of the Original Code is Andreas Weizel.
 // 	Portions created by the Initial Developer are
-// 	Copyright (C) 2014 Andreas Weizel. All Rights Reserved.
+// 	Copyright (C) 2014-2015 Andreas Weizel. All Rights Reserved.
 //
 // 	Contributor(s): (none)
 //
@@ -53,6 +53,11 @@ namespace awzcore.Lifecycle
 		{
 			// Create a new instance on request
 			return _initializationData.ServiceInfo.Initializer.Create(_initializationData);
+		}
+		
+		public void Destroy()
+		{
+			
 		}
 
 		#endregion

@@ -12,7 +12,7 @@
 //
 // 	The Initial Developer of the Original Code is Andreas Weizel.
 // 	Portions created by the Initial Developer are
-// 	Copyright (C) 2014 Andreas Weizel. All Rights Reserved.
+// 	Copyright (C) 2014-2015 Andreas Weizel. All Rights Reserved.
 //
 // 	Contributor(s): (none)
 //
@@ -30,13 +30,19 @@ namespace awzcore.Tests.Lifecycle
 {
 	public class LifecycleTests
 	{
-		public class LifecycleTestInstance
+		public class LifecycleTestInstance : IDisposable
 		{
 			public static bool InstanceCreated = false;
+			public static bool InstanceDestroyed = false;
 
 			public LifecycleTestInstance()
 			{
 				InstanceCreated = true;
+			}
+
+			public void Dispose()
+			{
+				InstanceDestroyed = true;
 			}
 		}
 
@@ -46,6 +52,7 @@ namespace awzcore.Tests.Lifecycle
 		public void SetUp()
 		{
 			LifecycleTestInstance.InstanceCreated = false;
+			LifecycleTestInstance.InstanceDestroyed = false;
 
 			ServiceInfo serviceInfo = new ServiceInfo {
 				Initializer = Initializer.Using((d) => new LifecycleTestInstance())
@@ -70,8 +77,12 @@ namespace awzcore.Tests.Lifecycle
 
 			Assert.That(instance1, Is.Not.Null);
 			Assert.That(instance1, Is.SameAs(instance2));
+			
+			// Test destruction of singleton instance
+			lifecycle.Destroy();
+			Assert.That(LifecycleTestInstance.InstanceDestroyed, Is.True);
 		}
-
+		
 		[Test]
 		[Description("Verifies that SingletonLifecycle creates the singleton on initialization.")]
 		public void TestSingletonLifecycle()
@@ -89,6 +100,10 @@ namespace awzcore.Tests.Lifecycle
 
 			Assert.That(instance1, Is.Not.Null);
 			Assert.That(instance1, Is.SameAs(instance2));
+			
+			// Test destruction of singleton instance
+			lifecycle.Destroy();
+			Assert.That(LifecycleTestInstance.InstanceDestroyed, Is.True);
 		}
 
 		[Test]

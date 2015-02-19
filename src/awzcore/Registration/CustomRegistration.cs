@@ -66,7 +66,7 @@ namespace awzcore.Registration
 			/// <typeparam name="T">
 			/// Type of service implementation,
 			/// which is also used as interface type for later lookup of this service.
-			/// <typeparam>
+			/// </typeparam>
 			/// <param name="instance">Instance initializer implementation to use.</param>
 			/// <returns>Service registration helper object.</returns>
 			public CustomServiceRegistration AddAsService<T>(T instance)
@@ -79,8 +79,8 @@ namespace awzcore.Registration
 			/// Registers a new service from given pre-created implementation instance.
 			/// Explicitly sets the interface type to register the service with.
 			/// </summary>
-			/// <typeparam name="TI">Interface type used for later lookup of this service.<typeparam>
-			/// <typeparam name="TC">Type of real service implementation.<typeparam>
+			/// <typeparam name="TI">Interface type used for later lookup of this service.</typeparam>
+			/// <typeparam name="TC">Type of real service implementation.</typeparam>
 			/// <param name="instance">Instance initializer implementation to use.</param>
 			/// <returns>Service registration helper object.</returns>
 			public CustomServiceRegistration AddAsService<TI, TC>(TC instance)
@@ -109,7 +109,7 @@ namespace awzcore.Registration
 			/// <typeparam name="T">
 			/// Type of service implementation,
 			/// which is also used as interface type for later lookup of this service.
-			/// <typeparam>
+			/// </typeparam>
 			/// <returns>Service registration helper object.</returns>
 			public CustomServiceRegistration AddService<T>()
 				where T : new()
@@ -120,8 +120,8 @@ namespace awzcore.Registration
 			/// <summary>
 			/// Registers a new service with given interface and service implementation type.
 			/// </summary>
-			/// <typeparam name="TI">Interface type used for later lookup of this service.<typeparam>
-			/// <typeparam name="TC">Type of real service implementation.<typeparam>
+			/// <typeparam name="TI">Interface type used for later lookup of this service.</typeparam>
+			/// <typeparam name="TC">Type of real service implementation.</typeparam>
 			/// <returns>Service registration helper object.</returns>
 			public CustomServiceRegistration AddService<TI, TC>()
 				where TC : TI, new()
@@ -132,8 +132,8 @@ namespace awzcore.Registration
 			/// <summary>
 			/// Registers a new service with given interface and service implementation type.
 			/// </summary>
-			/// <typeparam name="TI">Interface type used for later lookup of this service.<typeparam>
-			/// <typeparam name="TC">Type of real service implementation.<typeparam>
+			/// <typeparam name="TI">Interface type used for later lookup of this service.</typeparam>
+			/// <typeparam name="TC">Type of real service implementation.</typeparam>
 			/// <param name="initializerFunc">Delegate for instance creation.</param>
 			/// <returns>Service registration helper object.</returns>
 			public CustomServiceRegistration AddService<TI, TC>(Func<InitializationData, TC> initializerFunc)
@@ -148,8 +148,8 @@ namespace awzcore.Registration
 			/// <summary>
 			/// Registers a new service with given interface and service implementation type.
 			/// </summary>
-			/// <typeparam name="TI">Interface type used for later lookup of this service.<typeparam>
-			/// <typeparam name="TC">Type of real service implementation.<typeparam>
+			/// <typeparam name="TI">Interface type used for later lookup of this service.</typeparam>
+			/// <typeparam name="TC">Type of real service implementation.</typeparam>
 			/// <param name="initializerFunc">Delegate for instance creation.</param>
 			/// <param name="lifecycle">Lifecycle manager implementation to use.</param>
 			/// <returns>Service registration helper object.</returns>
@@ -165,8 +165,8 @@ namespace awzcore.Registration
 			/// <summary>
 			/// Registers a new service with given interface and service implementation type.
 			/// </summary>
-			/// <typeparam name="TI">Interface type used for later lookup of this service.<typeparam>
-			/// <typeparam name="TC">Type of real service implementation.<typeparam>
+			/// <typeparam name="TI">Interface type used for later lookup of this service.</typeparam>
+			/// <typeparam name="TC">Type of real service implementation.</typeparam>
 			/// <param name="initializer">Instance initializer implementation to use.</param>
 			/// <returns>Service registration helper object.</returns>
 			public CustomServiceRegistration AddService<TI, TC>(IInitializer initializer)
@@ -178,8 +178,8 @@ namespace awzcore.Registration
 			/// <summary>
 			/// Registers a new service with given interface and service implementation type.
 			/// </summary>
-			/// <typeparam name="TI">Interface type used for later lookup of this service.<typeparam>
-			/// <typeparam name="TC">Type of real service implementation.<typeparam>
+			/// <typeparam name="TI">Interface type used for later lookup of this service.</typeparam>
+			/// <typeparam name="TC">Type of real service implementation.</typeparam>
 			/// <param name="initializer">Instance initializer implementation to use.</param>
 			/// <param name="lifecycle">Lifecycle manager implementation to use.</param>
 			/// <returns>Service registration helper object.</returns>
@@ -237,8 +237,8 @@ namespace awzcore.Registration
 			/// <summary>
 			/// Registers a new service with given interface and service implementation type.
 			/// </summary>
-			/// <param name="interfaceType">Interface type used for later lookup of this service.<param>
-			/// <param name="implementationType">Type of real service implementation.<param>
+			/// <param name="interfaceType">Interface type used for later lookup of this service.</param>
+			/// <param name="implementationType">Type of real service implementation.</param>
 			/// <returns>Service registration helper object.</returns>
 			/// <remarks>>Uses <see cref="awzcore.Initialization.DynamicConstructorInitializer"/> by default.</remarks>
 			public CustomServiceRegistration AddService(Type interfaceType, Type implementationType)
